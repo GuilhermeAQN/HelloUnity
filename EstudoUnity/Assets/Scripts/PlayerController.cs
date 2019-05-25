@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0.1f;
+    Rigidbody2D rb2D;
 
     void Start()
     {
-        
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -24,6 +25,6 @@ public class PlayerController : MonoBehaviour
             position.x = position.x + speed * horizontal * Time.deltaTime;
             position.y = position.y + speed * vertical * Time.deltaTime;
         }
-        transform.position = position;
+        rb2D.MovePosition(position);
     }
 }
