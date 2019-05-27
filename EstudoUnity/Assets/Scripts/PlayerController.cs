@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float speed = 0.1f;
+    Rigidbody2D rb2D;
+
     public int maxHealth = 5;
 
     public int health{ get { return currentHealth; } }
     int currentHealth;
 
-    public float speed = 0.1f;
-    Rigidbody2D rb2D;
+    bool isInvincible;
+    public float timeInvincible = 2.0f;
+    float invincibleTimer;
 
     void Start(){
         rb2D = GetComponent<Rigidbody2D>();
@@ -31,9 +35,22 @@ public class PlayerController : MonoBehaviour
             position.y = position.y + speed * vertical * Time.deltaTime;
         }
         rb2D.MovePosition(position);
+
+        if(isInvincible){
+            invincibleTimer -=Time.deltaTime;
+            if(invincibleTimer < 0)
+                isInvincible = false;
+        }
     }
     
     public void ChangeHealth(int amount){
+        if(amount < 0){
+            if(isInvincible)
+                return;
+
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+        }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
     }
