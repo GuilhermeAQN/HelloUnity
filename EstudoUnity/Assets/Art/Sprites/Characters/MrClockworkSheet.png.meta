@@ -23,7 +23,7 @@ TextureImporter:
     21300036: MrClockworkFixed4
     21300038: MrClockworkEmpty
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 9
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -448,7 +448,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 5
+        y: 3
         width: 256
         height: 256
       alignment: 7

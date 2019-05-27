@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
 
     void Start(){
         rb2D = GetComponent<Rigidbody2D>();
-
         currentHealth = maxHealth;
     }
 

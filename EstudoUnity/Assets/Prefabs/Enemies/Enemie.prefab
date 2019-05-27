@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5233464008886596000}
   - component: {fileID: 6943234959106251128}
   - component: {fileID: 1365241060956872222}
+  - component: {fileID: 5348871733088673235}
   - component: {fileID: 4221353394493383490}
   m_Layer: 0
   m_Name: Enemie
@@ -145,6 +146,18 @@ MonoBehaviour:
   speed: 3
   vertical: 0
   changeTime: 2
+--- !u!114 &5348871733088673235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800699851487260112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005acc4465a236c4c8bdb209bf731360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &4221353394493383490
 Animator:
   serializedVersion: 3
