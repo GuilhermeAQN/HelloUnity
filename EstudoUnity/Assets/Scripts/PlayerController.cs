@@ -16,23 +16,39 @@ public class PlayerController : MonoBehaviour
     public float timeInvincible = 2.0f;
     float invincibleTimer;
 
+    Animator anim;
+    Vector2 lookDirection = new Vector2(0,-1);
+
     void Start(){
         rb2D = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+
+        anim = GetComponent<Animator>();
     }
 
     void Update(){
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector2 position = transform.position;
+        
+        Vector2 move = new Vector2(horizontal, vertical);
 
-        if(Mathf.Abs(horizontal) + Mathf.Abs(vertical) == 2){
-            position.x = position.x + speed / Mathf.Sqrt(2) * horizontal * Time.deltaTime;
-            position.y = position.y + speed / Mathf.Sqrt(2) * vertical * Time.deltaTime;
-        }else{
-            position.x = position.x + speed * horizontal * Time.deltaTime;
-            position.y = position.y + speed * vertical * Time.deltaTime;
+        if(!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)){
+            lookDirection.Set(move.x, move.y);
+            lookDirection.Normalize();
         }
+
+        anim.SetFloat("Look X", lookDirection.x);
+        anim.SetFloat("Look Y", lookDirection.y);
+        anim.SetFloat("Speed", move.magnitude);
+
+        Vector2 position = rb2D.position;
+        
+        if(Mathf.Abs(horizontal) + Mathf.Abs(vertical) == 2){
+            position = position + move * speed / Mathf.Sqrt(2) * Time.deltaTime;
+        }else{
+            position = position + move * speed * Time.deltaTime;
+        }
+        Debug.Log(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
         rb2D.MovePosition(position);
 
         if(isInvincible){
