@@ -13,6 +13,7 @@ public class EnemieController : MonoBehaviour
     int direction = 1;
 
     Animator anim;
+    bool broken = true;
 
     void Start()
     {
@@ -23,6 +24,11 @@ public class EnemieController : MonoBehaviour
 
     void Update()
     {
+        if(!broken){
+            anim.SetTrigger("Dead");
+            return;
+        }
+
         timer -= Time.deltaTime;
 
         if(timer < 0){
@@ -50,5 +56,10 @@ public class EnemieController : MonoBehaviour
         if(playerController != null){
             playerController.ChangeHealth(-1);
         }    
+    }
+
+    public void Fix(){
+        broken = false;
+        rb2D.simulated = false;
     }
 }

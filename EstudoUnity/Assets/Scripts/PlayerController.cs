@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     Animator anim;
     Vector2 lookDirection = new Vector2(0,-1);
+    
+    public GameObject projectilePrefab;
 
     void Start(){
         rb2D = GetComponent<Rigidbody2D>();
@@ -56,6 +58,11 @@ public class PlayerController : MonoBehaviour
             if(invincibleTimer < 0)
                 isInvincible = false;
         }
+
+        if(Input.GetKeyDown(KeyCode.C)){
+            Launch();
+        }
+        
     }
     
     public void ChangeHealth(int amount){
@@ -63,10 +70,21 @@ public class PlayerController : MonoBehaviour
             if(isInvincible)
                 return;
 
+            anim.SetTrigger("Hit");
             isInvincible = true;
             invincibleTimer = timeInvincible;
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
+    }
+
+    
+    void Launch(){
+        GameObject projectileObject = Instantiate(projectilePrefab, rb2D.position + Vector2.up * 0.5f, Quaternion.identity);
+
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(lookDirection, 300);
+
+        anim.SetTrigger("Launch");
     }
 }

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 585437791602266200}
   - component: {fileID: 585437791602266201}
   - component: {fileID: 8116970189995388330}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,9 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9630148352aae440bc159d37fa03acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   maxHealth: 5
   timeInvincible: 2
+  projectilePrefab: {fileID: 2781766876534463044, guid: bee02e31ae5a5a8469d9eda68accddb8,
+    type: 3}
 --- !u!50 &585437791602266201
 Rigidbody2D:
   serializedVersion: 4
