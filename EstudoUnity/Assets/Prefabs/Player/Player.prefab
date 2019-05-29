@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 585437791602266203}
   - component: {fileID: 585437791602266202}
+  - component: {fileID: 397330395015775070}
   - component: {fileID: 585437791602266200}
   - component: {fileID: 585437791602266201}
   - component: {fileID: 8116970189995388330}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,6 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!95 &397330395015775070
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585437791602266181}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b77822e0485373d40b5beb92e9a5e728, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &585437791602266200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,9 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9630148352aae440bc159d37fa03acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4
   maxHealth: 5
   timeInvincible: 2
+  projectilePrefab: {fileID: 2781766876534463044, guid: bee02e31ae5a5a8469d9eda68accddb8,
+    type: 3}
 --- !u!50 &585437791602266201
 Rigidbody2D:
   serializedVersion: 4
