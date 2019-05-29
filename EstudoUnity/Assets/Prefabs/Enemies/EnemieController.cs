@@ -35,7 +35,7 @@ public class EnemieController : MonoBehaviour
             direction = -direction;
             timer = changeTime;
         }
-
+     
         Vector2 position = rb2D.position;
 
         if(vertical){
