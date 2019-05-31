@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     Rigidbody2D rb2D;
+    public ParticleSystem atkParticle;
 
     void Awake(){
         rb2D = GetComponent<Rigidbody2D>();
@@ -25,7 +26,7 @@ public class Projectile : MonoBehaviour
         if(e != null){
             e.Fix();
         }
-
+        Instantiate(atkParticle, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }
