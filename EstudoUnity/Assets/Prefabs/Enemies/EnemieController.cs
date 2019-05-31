@@ -7,6 +7,7 @@ public class EnemieController : MonoBehaviour
     public float speed;
     public bool vertical;
     public float changeTime = 3.0f;
+    public ParticleSystem smokeEffect;
 
     Rigidbody2D rb2D;
     float timer;
@@ -61,5 +62,6 @@ public class EnemieController : MonoBehaviour
     public void Fix(){
         broken = false;
         rb2D.simulated = false;
+        smokeEffect.Stop();
     }
 }

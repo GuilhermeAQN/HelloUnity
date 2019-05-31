@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         }else{
             position = position + move * speed * Time.deltaTime;
         }
-        Debug.Log(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
         rb2D.MovePosition(position);
 
         if(isInvincible){
