@@ -61,7 +61,15 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.C)){
             Launch();
         }
-        
+
+        //Dialogue with NPC----
+        RaycastHit2D hit = Physics2D.Raycast(rb2D.position + Vector2.up * 0.2f,lookDirection, 1.5f, LayerMask.GetMask("NPC"));
+        if(Input.GetKeyDown(KeyCode.X)){
+            if(hit.collider != null){
+                JambiController.instance.DisplayDialogue();
+            }
+        }
+        //-----
     }
     
     public void ChangeHealth(int amount){
@@ -75,7 +83,6 @@ public class PlayerController : MonoBehaviour
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth / (float) maxHealth);
-        Debug.Log(currentHealth + "/" + (float) maxHealth + " = " + currentHealth / (float) maxHealth);
     }
 
     
