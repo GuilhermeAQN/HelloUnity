@@ -56,7 +56,7 @@ public class EnemieController : MonoBehaviour
 
         if(playerController != null){
             playerController.ChangeHealth(-1);
-        }    
+        }
     }
 
     public void Fix(){

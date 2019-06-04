@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &858621866
 RectTransform:
   m_ObjectHideFlags: 0
@@ -243,11 +243,11 @@ MonoBehaviour:
     lineCount: 3
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 9046159425757681793}
   - component: {fileID: 9046159425757681794}
   - component: {fileID: 8584852591813088325}
+  - component: {fileID: 368196678}
   m_Layer: 12
   m_Name: Jambi
   m_TagString: Untagged
@@ -477,7 +478,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1b3f58be7768d408dbc41de7d80bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayTime: 4
+  dialogBox: {fileID: 858621865}
   anim: {fileID: 9046159426603517103}
+--- !u!114 &368196678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046159425757681795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e94ef726a0ddd4c9ccd85a21a3db13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: Jambi
+    sentences:
+    - "Hey!! Voc\xEA poderia me ajudar?"
+    - "Algumas coisa aconteceu com os Robos de Deset Town. Eles est\xE3o furiosos."
+    - "Voc\xEA poderia conserta-los para mim? Depois volte aqui para receber sua recompensa!"
 --- !u!1001 &217647080430137641
 PrefabInstance:
   m_ObjectHideFlags: 0
