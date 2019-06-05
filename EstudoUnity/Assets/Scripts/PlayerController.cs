@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instence { get; private set; }
+
     //public variables
     public float speed = 0.1f;
     public float timeInvincible = 2.0f;
     public int maxHealth = 5;
     public int health{ get { return currentHealth; } }
     public GameObject projectilePrefab;
+    [HideInInspector]
+    public bool inDialogue;
 
     //private variables
     int currentHealth;
     float invincibleTimer;
-    bool inDialogue;
     bool isInvincible;
     Rigidbody2D rb2D;
     Animator anim;
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
+        instence = this;
     }
 
     void Update(){
@@ -68,11 +72,13 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.X) && inDialogue == false){
             if(hit.collider != null){
                 inDialogue = true;
-                JambiController.instance.DisplayDialogue();
+                BallonDialogueController.instance.DisplayDialogue();
                 DialogueTrigger.instence.TriggerDialogue();
             }
+        }else if(Input.GetKeyDown(KeyCode.X) && inDialogue == true){
+            DialogueManager.instence.DisplayNextSentence();
         }
-        //-----
+        //---------------
     }
     
     public void ChangeHealth(int amount){
