@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MissionsHelp : MonoBehaviour{
+public class MissionsController : MonoBehaviour{
 
-    public static MissionsHelp instance { get; private set; }
+    public static MissionsController instance { get; private set; }
 
     int enemiesCount;
     public List<GameObject> go;

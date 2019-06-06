@@ -7,7 +7,9 @@ using TMPro;
 public class DialogueManager : MonoBehaviour{
 
     public static DialogueManager instence { get; private set; }
+    [Header ("Nome do NPC")]
     public TextMeshProUGUI nameText;
+    [Header ("Caixa de dialogo")]
     public TextMeshProUGUI dialogueText;
 
     [Header ("DialogueBox")]
@@ -43,7 +45,6 @@ public class DialogueManager : MonoBehaviour{
         foreach(string sentence in dialogue.sentences){
             sentences.Enqueue(sentence);
         }
-        DisplayNextSentence();
         dialogueCanvas.SetBool("Open", true);
     }
 
@@ -60,7 +61,7 @@ public class DialogueManager : MonoBehaviour{
     }
 
     void EndDialogue(){
-        PlayerController.instence.inDialogue = false;
+        PlayerController.instence.talkingNPC = false;
         BallonDialogueController.instance.anim.SetBool("inDialogue", false);
         dialogueCanvas.SetBool("Open", false);
     }

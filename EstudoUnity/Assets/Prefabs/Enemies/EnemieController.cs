@@ -50,8 +50,8 @@ public class EnemieController : MonoBehaviour
         }
         rb2D.MovePosition(position);
     }
-
-    void OnCollisionEnter2D(Collision2D other) {
+    
+    void OnTriggerEnter2D(Collider2D other) {
         PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
 
         if(playerController != null){

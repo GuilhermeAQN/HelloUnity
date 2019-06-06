@@ -21,11 +21,16 @@ public class Projectile : MonoBehaviour
         rb2D.AddForce(direction * force);
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    void OnTriggerEnter2D(Collider2D other) {
         EnemieController e = other.gameObject.GetComponent<EnemieController>();
         if(e != null){
             e.Fix();
         }
+        Instantiate(atkParticle, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+    
+    void OnCollisionEnter2D(Collision2D other) {
         Instantiate(atkParticle, transform.position, transform.rotation);
         Destroy(gameObject);
     }

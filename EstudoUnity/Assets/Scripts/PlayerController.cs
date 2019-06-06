@@ -9,15 +9,18 @@ public class PlayerController : MonoBehaviour
     //public variables
     public float speed = 0.1f;
     public float timeInvincible = 2.0f;
-    public int maxHealth = 5;
+    public float timeCantWalk;
+    public int maxHealth = 10;
     public int health{ get { return currentHealth; } }
     public GameObject projectilePrefab;
     [HideInInspector]
-    public bool inDialogue;
+    public bool talkingNPC;
 
     //private variables
     int currentHealth;
     float invincibleTimer;
+    float cantWalkTimer;
+    bool canWalk;
     bool isInvincible;
     Rigidbody2D rb2D;
     Animator anim;
@@ -29,10 +32,11 @@ public class PlayerController : MonoBehaviour
         currentHealth = maxHealth;
         anim = GetComponent<Animator>();
         instence = this;
+        canWalk = true;
     }
 
     void Update(){
-        if(inDialogue == false){
+        if(!talkingNPC && canWalk){
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
 
@@ -56,26 +60,32 @@ public class PlayerController : MonoBehaviour
             }
             rb2D.MovePosition(position);
 
-            if(isInvincible){
-                invincibleTimer -=Time.deltaTime;
-                if(invincibleTimer < 0)
-                    isInvincible = false;
-            }
-
             if(Input.GetKeyDown(KeyCode.C)){
                 LaunchObject();
             }
         }
 
+        if(isInvincible){
+            invincibleTimer -=Time.deltaTime;
+            if(invincibleTimer < 0)
+                isInvincible = false;
+        }
+
+        if(!canWalk){
+            cantWalkTimer -=Time.deltaTime;
+            if(cantWalkTimer < 0)
+                canWalk = true;
+        }
+
         //Dialogue with NPC----
         RaycastHit2D hit = Physics2D.Raycast(rb2D.position + Vector2.up * 0.2f,lookDirection, 1.5f, LayerMask.GetMask("NPC"));
-        if(Input.GetKeyDown(KeyCode.X) && inDialogue == false){
+        if(Input.GetKeyDown(KeyCode.X) && talkingNPC == false){
             if(hit.collider != null){
-                inDialogue = true;
+                talkingNPC = true;
                 BallonDialogueController.instance.DisplayDialogue();
                 DialogueTrigger.instence.TriggerDialogue();
             }
-        }else if(Input.GetKeyDown(KeyCode.X) && inDialogue == true){
+        }else if(Input.GetKeyDown(KeyCode.X) && talkingNPC == true){
             DialogueManager.instence.DisplayNextSentence();
         }
         //---------------
@@ -89,6 +99,8 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("Hit");
             isInvincible = true;
             invincibleTimer = timeInvincible;
+            canWalk = false;
+            cantWalkTimer = timeCantWalk;
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth / (float) maxHealth);
@@ -96,11 +108,15 @@ public class PlayerController : MonoBehaviour
 
     
     void LaunchObject(){
-        GameObject projectileObject = Instantiate(projectilePrefab, rb2D.position + Vector2.up * 0.5f, Quaternion.identity);
+        if(CogAmmoControll.instence.currentCogAmmo > 0 && canWalk){
+            GameObject projectileObject = Instantiate(projectilePrefab, rb2D.position + Vector2.up * 0.5f, Quaternion.identity);
 
-        Projectile projectile = projectileObject.GetComponent<Projectile>();
-        projectile.Launch(lookDirection, 300);
-
-        anim.SetTrigger("Launch");
+            Projectile projectile = projectileObject.GetComponent<Projectile>();
+            projectile.Launch(lookDirection, 300);
+            anim.SetTrigger("Launch");
+            CogAmmoControll.instence.currentCogAmmo--;
+            canWalk = false;
+            cantWalkTimer = timeCantWalk;
+        }
     }
 }
