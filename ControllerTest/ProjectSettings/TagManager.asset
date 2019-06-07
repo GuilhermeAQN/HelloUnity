@@ -3,7 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: [Robots]
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Projectile
-  - Ground
-  - Confiner
-  - NPC
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -40,10 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-    uniqueID: 1334452483
-    locked: 0
-  - name: Player
-    uniqueID: 1334452483
     locked: 0
