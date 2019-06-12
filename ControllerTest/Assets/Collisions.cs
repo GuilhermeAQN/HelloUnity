@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent (typeof (BoxCollider2D))]
 public class Collisions : MonoBehaviour{
+    public static Collisions instence { get; private set; }
 
     public LayerMask groundMask;
 
@@ -22,6 +23,7 @@ public class Collisions : MonoBehaviour{
     public int wallSide;
 
     void Awake(){
+        instence = this;
         coll = GetComponent<BoxCollider2D>();
         player = GetComponent<PlayerController>();
     }
@@ -44,8 +46,8 @@ public class Collisions : MonoBehaviour{
         RaycastHit2D topMaxRay = Physics2D.Raycast(rayTopOrigin, rayDirection * -1, rayDis, groundMask);
         RaycastHit2D topMinRay = Physics2D.Raycast(rayBotOrigin, rayDirection * -1, rayDis, groundMask);
 
-        // Debug.DrawRay(rayTopOrigin, rayDirection * -rayDis, Color.red);
-        // Debug.DrawRay(rayBotOrigin, rayDirection * -rayDis, Color.red);
+        Debug.DrawRay(rayTopOrigin, rayDirection * -rayDis, Color.red);
+        Debug.DrawRay(rayBotOrigin, rayDirection * -rayDis, Color.red);
 
         if(topMaxRay || topMinRay)
             onWall = true;
@@ -68,8 +70,8 @@ public class Collisions : MonoBehaviour{
         RaycastHit2D botLeftRay = Physics2D.Raycast(raycastOrigin.bottomLeft, Vector2.up * -1, rayDis, groundMask);
         RaycastHit2D botRightRay = Physics2D.Raycast(raycastOrigin.bottomRight, Vector2.up * -1, rayDis, groundMask);
 
-        // Debug.DrawRay(raycastOrigin.bottomLeft, Vector2.up * -rayDis, Color.red);
-        // Debug.DrawRay(raycastOrigin.bottomRight, Vector2.up * -rayDis, Color.red);
+        Debug.DrawRay(raycastOrigin.bottomLeft, Vector2.up * -rayDis, Color.red);
+        Debug.DrawRay(raycastOrigin.bottomRight, Vector2.up * -rayDis, Color.red);
             
         if(botLeftRay || botRightRay){
             onGround = true;

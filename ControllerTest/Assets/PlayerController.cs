@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
+    public static PlayerController instence { get; set; }
 
     private Animations anim;
     private Collisions coll;
@@ -14,10 +15,8 @@ public class PlayerController : MonoBehaviour{
     public float jumpForce = 5;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-
     public float slideSpeed = 2;
     public float wallJumpLerp = 10;
-    
     [HideInInspector]
     public float dirX = 1;
 
@@ -28,7 +27,8 @@ public class PlayerController : MonoBehaviour{
 
     private Vector2 dir;
 
-    void Start(){
+    void Awake(){
+        instence = this;
         coll = GetComponent<Collisions>();
         anim = GetComponent<Animations>();
         rb = GetComponent<Rigidbody2D>();
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour{
             jumping = false;
     }
 
-    void Walk(Vector2 dir){
+    public void Walk(Vector2 dir){
         if(!canMove)
             return;
 
