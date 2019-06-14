@@ -35,7 +35,7 @@ public class Collisions : MonoBehaviour{
 
     void UpdateCollision(){
 
-    //--------------Horizontal Collisions--------------//
+    // -------------- Horizontal Collisions -------------- //
         float direction = player.dirX;
 
         Vector2 rayTopOrigin = (direction == -1)? raycastOrigin.topLeft : raycastOrigin.topRight;
@@ -66,7 +66,7 @@ public class Collisions : MonoBehaviour{
 
         wallSide = onRightWall ? -1 : 1;
 
-    //--------------Vertical Collisions--------------//
+    // -------------- Vertical Collisions -------------- //
         RaycastHit2D botLeftRay = Physics2D.Raycast(raycastOrigin.bottomLeft, Vector2.up * -1, rayDis, groundMask);
         RaycastHit2D botRightRay = Physics2D.Raycast(raycastOrigin.bottomRight, Vector2.up * -1, rayDis, groundMask);
 

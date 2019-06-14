@@ -7,11 +7,12 @@ public class PlayerController : MonoBehaviour{
     public static PlayerController instence { get; set; }
 
     private Animations anim;
-    private Collisions coll;
+    [HideInInspector]
+    public Collisions coll;
     [HideInInspector]
     public Rigidbody2D rb;
 
-    public float speed = 10;
+    public float speed = 7;
     public float jumpForce = 5;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
@@ -19,6 +20,10 @@ public class PlayerController : MonoBehaviour{
     public float wallJumpLerp = 10;
     [HideInInspector]
     public float dirX = 1;
+    // [HideInInspector]
+    public float x;
+    [HideInInspector]
+    public float y;
 
     public bool canMove;
     public bool wallJumped;
@@ -26,6 +31,7 @@ public class PlayerController : MonoBehaviour{
     public bool jumping;
 
     private Vector2 dir;
+    public bool inputMobile = true;
 
     void Awake(){
         instence = this;
@@ -35,18 +41,13 @@ public class PlayerController : MonoBehaviour{
     }
 
     void Update(){
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        Vector2 dir = new Vector2(x, y);
-
         if(x > 0)
             dirX = 1;
         else if(x < 0)
             dirX = -1;
 
-        Walk(dir);
 
-        //----------Call Wall Slide----------//
+        //---------- Call Wall Slide ----------//
         if(coll.onWall && !coll.onGround){
             if(x != 0 && !jumping){
                 wallSlide = true;
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour{
             wallJumped = false;
         }
 
-        //----------Call Jump and Wall Jump----------
+        //---------- Call Jump and Wall Jump ----------
         if(Input.GetButtonDown("Jump")){
             // anim.SetTrigger("jump");
 
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour{
                 WallJump();
         }
 
-        //----------Jump Sustain Code----------//
+        //---------- Jump Sustain Code ----------//
         if(rb.velocity.y < 0){
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
@@ -82,6 +83,18 @@ public class PlayerController : MonoBehaviour{
         }
         if (rb.velocity.y < 0)
             jumping = false;
+
+
+        if(Input.GetKeyDown(KeyCode.C)){
+            if(inputMobile == false){
+                inputMobile = true;
+                return;
+            }
+            if(inputMobile == true){
+                inputMobile = false;
+                return;
+            }
+        }
     }
 
     public void Walk(Vector2 dir){
@@ -98,14 +111,15 @@ public class PlayerController : MonoBehaviour{
         }else{
             rb.velocity = Vector2.Lerp(rb.velocity, (new Vector2(dir.x * speed, rb.velocity.y)), wallJumpLerp * Time.deltaTime);
         }
+        anim.Flip(dirX);
     }
 
-    void Jump(Vector2 dir, bool wall){
+    public void Jump(Vector2 dir, bool wall){
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.velocity += dir * jumpForce;
     }
 
-    private void WallJump(){
+    public void WallJump(){
         if((dirX == 1 && coll.onRightWall) || dirX == -1 && coll.onLeftWall){
             dirX *= -1;
             anim.Flip(dirX);
