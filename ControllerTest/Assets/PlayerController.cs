@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour{
     public float wallJumpLerp = 10;
     [HideInInspector]
     public float dirX = 1;
-    // [HideInInspector]
+    [HideInInspector]
     public float x;
     [HideInInspector]
     public float y;
@@ -29,9 +29,12 @@ public class PlayerController : MonoBehaviour{
     public bool wallJumped;
     public bool wallSlide;
     public bool jumping;
+    public bool jumpingSustain;
 
-    private Vector2 dir;
     public bool inputMobile = true;
+
+    [HideInInspector]
+    public Vector2 dir;
 
     void Awake(){
         instence = this;
@@ -40,14 +43,14 @@ public class PlayerController : MonoBehaviour{
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update(){
+    void FixedUpdate(){
+
         if(x > 0)
             dirX = 1;
         else if(x < 0)
             dirX = -1;
 
-
-        //---------- Call Wall Slide ----------//
+        // -------------------- Call Wall Slide -------------------- \\
         if(coll.onWall && !coll.onGround){
             if(x != 0 && !jumping){
                 wallSlide = true;
@@ -57,43 +60,19 @@ public class PlayerController : MonoBehaviour{
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
         }
+
         if(coll.onGround){
             wallSlide = false;
             wallJumped = false;
         }
 
-        //---------- Call Jump and Wall Jump ----------
-        if(Input.GetButtonDown("Jump")){
-            // anim.SetTrigger("jump");
-
-            if(coll.onGround){
-                Jump(Vector2.up, false);
-                jumping = true;
-            }
-            if(coll.onWall && !coll.onGround)
-                WallJump();
-        }
-
-        //---------- Jump Sustain Code ----------//
+        // -------------------- Jump Sustain Controller --------------------\\
         if(rb.velocity.y < 0){
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if(rb.velocity.y > 0 && !Input.GetButton("Jump")){
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
-        if (rb.velocity.y < 0)
             jumping = false;
-
-
-        if(Input.GetKeyDown(KeyCode.C)){
-            if(inputMobile == false){
-                inputMobile = true;
-                return;
-            }
-            if(inputMobile == true){
-                inputMobile = false;
-                return;
-            }
+        }
+        else if(rb.velocity.y > 0 && !jumpingSustain){
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
@@ -120,19 +99,22 @@ public class PlayerController : MonoBehaviour{
     }
 
     public void WallJump(){
-        if((dirX == 1 && coll.onRightWall) || dirX == -1 && coll.onLeftWall){
-            dirX *= -1;
-            anim.Flip(dirX);
+        if(!jumping){
+            if((dirX == 1 && coll.onRightWall) || dirX == -1 && coll.onLeftWall){
+                dirX *= -1;
+                anim.Flip(dirX);
+            }
+
+            StopCoroutine(DisableMovement(0));
+            StartCoroutine(DisableMovement(.15f));
+
+            Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
+
+            Jump((Vector2.up / 1.3f + wallDir / 1.5f), true);
+
+            wallJumped = true;    
         }
-
-        StopCoroutine(DisableMovement(0));
-        StartCoroutine(DisableMovement(.15f));
-
-        Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
-
-        Jump((Vector2.up / 1.3f + wallDir / 1.3f), true);
-
-        wallJumped = true;
+        
     }
 
 

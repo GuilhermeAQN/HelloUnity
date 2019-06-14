@@ -22,50 +22,67 @@ public class MobileInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if(btnPress == false){
             if(maxAxis != 0){
                 maxAxis = Mathf.MoveTowards(maxAxis, 0, axisGravity * Time.deltaTime);
-                Move(maxAxis);
+                player.x = maxAxis;
             }
             // if(Mathf.Abs(maxAxis) < 0.05){
             //     maxAxis = 0;
             // }
         }
-        if(Input.GetKeyDown(KeyCode.C)){
+    }
+
+    void FixedUpdate(){
+        // ---------- true = Mobile input | false = PC input ---------- \\
+        if(Input.GetKeyDown(KeyCode.T)){
             if(player.inputMobile == false){
                 player.inputMobile = true;
                 return;
-            }
-
-            if(player.inputMobile == true){
+            }else{
                 player.inputMobile = false;
                 return;
             }
         }
+        if(player.inputMobile){  // -----> Mobile input
+            player.y = Input.GetAxis("Vertical");
+            player.dir = new Vector2(player.x, player.y);
 
-        if(!player.inputMobile){
+            player.Walk(player.dir);
+        }else if(!player.inputMobile){ // -----> PC input
             player.x = Input.GetAxis("Horizontal");
             player.y = Input.GetAxis("Vertical");
-            Vector2 dir = new Vector2(player.x, player.y);
-            player.Walk(dir);
+            player.dir = new Vector2(player.x, player.y);
+            player.Walk(player.dir);
         }
     }
 
     public void OnPointerDown(PointerEventData eventData){
         StartCoroutine(PressButton());
+
+        if(btnSide == 0){
+            if(coll.onGround){
+                player.Jump(Vector2.up, false);
+                player.jumping = true;
+            }
+            if(coll.onWall && !coll.onGround)
+                player.WallJump();
+        }
     }
+
     public void OnPointerUp(PointerEventData eventData){
         StopAllCoroutines();
         btnPress = false;
+        player.jumpingSustain = false;
     }
 
     IEnumerator PressButton(){
         while (true){
             yield return null;
-            
+
             if(btnSide == 1){
                 if(maxAxis < 1)
                     maxAxis = Mathf.MoveTowards(maxAxis, 1, axisSensitivity * Time.deltaTime);
 
                 btnPress = true;
-                Move(maxAxis);
+                player.x = maxAxis;
             }
 
             if(btnSide == -1){
@@ -73,29 +90,12 @@ public class MobileInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     maxAxis = Mathf.MoveTowards(maxAxis, -1, axisSensitivity * Time.deltaTime);
 
                 btnPress = true;
-                Move(maxAxis);
+                player.x = maxAxis;
             }
 
-            if(btnSide == 2){
-                Debug.Log("Apertando Pulo");
-                if(coll.onGround){
-                    player.Jump(Vector2.up, false);
-                    player.jumping = true;
-                }
-                if(coll.onWall && !coll.onGround)
-                    player.WallJump();
+            if(btnSide == 0){
+                player.jumpingSustain = true;
             }
         }
-    }
-
-    public void Move(float value){
-        if(player.inputMobile){
-            player.x = value;
-            player.y = Input.GetAxis("Vertical");
-            Vector2 dir = new Vector2(player.x, player.y);
-
-            player.Walk(dir);
-        }
-        
     }
 }

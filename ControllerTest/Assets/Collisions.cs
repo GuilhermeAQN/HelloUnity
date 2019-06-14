@@ -82,7 +82,7 @@ public class Collisions : MonoBehaviour{
 
     public void UpdateRayOrigin(){
         Bounds bounds = coll.bounds;
-        bounds.Expand (skinWidth * -.5f);
+        bounds.Expand (skinWidth * -.3f);
         
         raycastOrigin.bottomLeft = new Vector2 (bounds.min.x, bounds.min.y);
         raycastOrigin.bottomRight = new Vector2 (bounds.max.x, bounds.min.y);
