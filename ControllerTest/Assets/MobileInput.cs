@@ -17,6 +17,8 @@ public class MobileInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public float maxAxis = 0;
 
     public bool btnPress;
+    public bool onWall;
+    public bool onLeaveWall;
 
     void Update(){
         if(btnPress == false){
@@ -24,13 +26,15 @@ public class MobileInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 maxAxis = Mathf.MoveTowards(maxAxis, 0, axisGravity * Time.deltaTime);
                 player.x = maxAxis;
             }
-            // if(Mathf.Abs(maxAxis) < 0.05){
-            //     maxAxis = 0;
-            // }
         }
     }
 
     void FixedUpdate(){
+        if(onWall && !coll.onWall){
+            StartCoroutine(SaiuDaParede());
+        }
+        onWall = coll.onWall;
+
         // ---------- true = Mobile input | false = PC input ---------- \\
         if(Input.GetKeyDown(KeyCode.T)){
             if(player.inputMobile == false){
@@ -62,8 +66,11 @@ public class MobileInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 player.Jump(Vector2.up, false);
                 player.jumping = true;
             }
-            if(coll.onWall && !coll.onGround)
+            if((coll.onWall && !coll.onGround) || onLeaveWall){
                 player.WallJump();
+                onLeaveWall = false;
+                onWall = false;
+            }
         }
     }
 
@@ -97,5 +104,11 @@ public class MobileInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 player.jumpingSustain = true;
             }
         }
+    }
+
+    IEnumerator SaiuDaParede(){
+        onLeaveWall = true;
+        yield return new WaitForSeconds(.15f);
+        onLeaveWall = false;
     }
 }

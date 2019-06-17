@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
-    public static PlayerController instence { get; set; }
-
+    
     private Animations anim;
     [HideInInspector]
     public Collisions coll;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour{
     public float lowJumpMultiplier = 2f;
     public float slideSpeed = 2;
     public float wallJumpLerp = 10;
-    [HideInInspector]
     public float dirX = 1;
     [HideInInspector]
     public float x;
@@ -37,14 +35,12 @@ public class PlayerController : MonoBehaviour{
     public Vector2 dir;
 
     void Awake(){
-        instence = this;
         coll = GetComponent<Collisions>();
         anim = GetComponent<Animations>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate(){
-
         if(x > 0)
             dirX = 1;
         else if(x < 0)
@@ -55,6 +51,8 @@ public class PlayerController : MonoBehaviour{
             if(x != 0 && !jumping){
                 wallSlide = true;
                 WallSlide();
+            }else if(x <= .5f || x >= -.5f){
+                wallSlide = false;
             }
             if(x != 0 && jumping){
                 rb.velocity = new Vector2(0, rb.velocity.y);
@@ -98,26 +96,6 @@ public class PlayerController : MonoBehaviour{
         rb.velocity += dir * jumpForce;
     }
 
-    public void WallJump(){
-        if(!jumping){
-            if((dirX == 1 && coll.onRightWall) || dirX == -1 && coll.onLeftWall){
-                dirX *= -1;
-                anim.Flip(dirX);
-            }
-
-            StopCoroutine(DisableMovement(0));
-            StartCoroutine(DisableMovement(.15f));
-
-            Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
-
-            Jump((Vector2.up / 1.3f + wallDir / 1.5f), true);
-
-            wallJumped = true;    
-        }
-        
-    }
-
-
     void WallSlide(){
         if(coll.wallSide != dirX)
             anim.Flip(dirX * -1);
@@ -133,6 +111,24 @@ public class PlayerController : MonoBehaviour{
 
         if(!jumping)
             rb.velocity = new Vector2(push, -slideSpeed);
+    }
+
+    public void WallJump(){
+        if(!jumping){
+            if((dirX == 1 && coll.onRightWall) || dirX == -1 && coll.onLeftWall){
+                dirX *= -1;
+                anim.Flip(dirX);
+            }
+
+            StopCoroutine(DisableMovement(0));
+            StartCoroutine(DisableMovement(.15f));
+
+            Vector2 wallDir = coll.onRightWall ? Vector2.left : Vector2.right;
+
+            Jump((Vector2.up / 1.3f + wallDir / 1.5f), true);
+
+            wallJumped = true;
+        }
     }
 
     IEnumerator DisableMovement(float time){

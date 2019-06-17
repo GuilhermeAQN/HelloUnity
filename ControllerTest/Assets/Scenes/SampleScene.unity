@@ -206,6 +206,9 @@ MonoBehaviour:
   axisSensitivity: 3
   maxAxis: 0
   btnPress: 0
+  onWall: 0
+  acabouSairParede: 0
+  acabouDeJumpar: 0
 --- !u!114 &185879161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,8 +494,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676965787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 4, z: 1}
+  m_LocalPosition: {x: 3.5, y: -2.449, z: 0}
+  m_LocalScale: {x: 1, y: 3.0921, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -590,6 +593,9 @@ MonoBehaviour:
   axisSensitivity: 3
   maxAxis: 0
   btnPress: 0
+  onWall: 0
+  acabouSairParede: 0
+  acabouDeJumpar: 0
 --- !u!114 &714726745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,8 +832,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906669295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3, y: -0.5, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -1060,8 +1066,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358868319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 4, z: 1}
+  m_LocalPosition: {x: -3.5, y: 0.525, z: 0}
+  m_LocalScale: {x: 1, y: 9.048, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -1407,6 +1413,9 @@ MonoBehaviour:
   axisSensitivity: 3
   maxAxis: 0
   btnPress: 0
+  onWall: 0
+  acabouSairParede: 0
+  acabouDeJumpar: 0
 --- !u!114 &2021333893
 MonoBehaviour:
   m_ObjectHideFlags: 0
