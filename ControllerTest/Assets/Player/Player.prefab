@@ -132,6 +132,9 @@ MonoBehaviour:
   wallJumped: 0
   wallSlide: 0
   jumping: 0
+  jumpingSustain: 0
+  inputMobile: 1
+  dir: {x: 0, y: 0}
 --- !u!114 &2968447446504784080
 MonoBehaviour:
   m_ObjectHideFlags: 0

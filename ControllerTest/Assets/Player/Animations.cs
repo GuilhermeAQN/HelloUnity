@@ -6,14 +6,14 @@ using UnityEngine;
 public class Animations : MonoBehaviour{
 
     private Animator anim;
-    private PlayerController player;
+    private PlayerMovement player;
     private Collisions coll;
     [HideInInspector]
     public SpriteRenderer sr;
 
     void Start(){
         anim = GetComponent<Animator>();
-        player = GetComponent<PlayerController>();
+        player = GetComponent<PlayerMovement>();
         coll = GetComponent<Collisions>();
         sr = GetComponent<SpriteRenderer>();
     }

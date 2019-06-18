@@ -3,35 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour{
+public class PlayerMovement : MonoBehaviour{
     
     private Animations anim;
     [HideInInspector]
     public Collisions coll;
     [HideInInspector]
     public Rigidbody2D rb;
-
+    
+    [Header("Movement Properties")]
     public float speed = 7;
-    public float jumpForce = 5;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+
+    [Header("Jump Properties")]
+    public float jumpForce = 5;
+
+    [Header("Wall Properties")]
     public float slideSpeed = 2;
     public float wallJumpLerp = 10;
-    public float dirX = 1;
-    [HideInInspector]
-    public float x;
-    [HideInInspector]
-    public float y;
 
+    [Header("Status")]
     public bool canMove;
     public bool wallJumped;
     public bool wallSlide;
     public bool jumping;
     public bool jumpingSustain;
 
-    public bool inputMobile = true;
-
-    [HideInInspector]
+    [Header("Directions")]
+    public float x;
+    public float y;
+    public float dirX = 1;
     public Vector2 dir;
 
     void Awake(){
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour{
     }
 
     void FixedUpdate(){
+        // --------- Update Directions --------- \\
         if(x > 0)
             dirX = 1;
         else if(x < 0)

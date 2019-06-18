@@ -9,7 +9,7 @@ public class Collisions : MonoBehaviour{
     public LayerMask groundMask;
 
     private BoxCollider2D coll;
-    private PlayerController player;
+    private PlayerMovement player;
     private RaycastOrigin raycastOrigin;
 
     float rayDis = 0.05f;
@@ -25,7 +25,7 @@ public class Collisions : MonoBehaviour{
     void Awake(){
         instence = this;
         coll = GetComponent<BoxCollider2D>();
-        player = GetComponent<PlayerController>();
+        player = GetComponent<PlayerMovement>();
     }
 
     void FixedUpdate(){
