@@ -11,14 +11,14 @@ public class AnotherClass : MonoBehaviour{
     private int sllotape;
 
     public void FruitMachine(int a, int b){
-        int responda;
-        responda = a + b;
-        Debug.Log("Total de Frutas: " + responda);
+        int answer;
+        answer = a + b;
+        Debug.Log("Total de Frutas: " + answer);
     }
 
     private void OfficeSort(int a, int b){
-        int responda;
-        responda = a + b;
-        Debug.Log("Total de material de escritório: " + responda);
+        int answer;
+        answer = a + b;
+        Debug.Log("Total de material de escritório: " + answer);
     }
 }

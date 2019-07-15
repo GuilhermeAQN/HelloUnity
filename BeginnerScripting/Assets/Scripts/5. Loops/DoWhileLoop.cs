@@ -4,10 +4,10 @@ using UnityEngine;
 public class DoWhileLoop : MonoBehaviour{
     
     void Start(){
-        bool deveContinuar = false;
+        bool souldContinue = false;
 
         do{
             print("Hello World");
-        }while(deveContinuar == true);
+        }while(souldContinue == true);
     }
 }

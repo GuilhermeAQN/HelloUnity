@@ -9,22 +9,20 @@ public class ScopeAndAccessModifiers : MonoBehaviour{
     private int beta = 0;
     private int gamma = 5;
 
-    private AnotherClass myOtherClass;
+    private AnotherClass anotherClass;
 
     void Start(){
-        alpha = 29;
-
-        myOtherClass = new AnotherClass();
-        myOtherClass.FruitMachine(alpha, myOtherClass.apples);
+        anotherClass = GetComponent<AnotherClass>();
+        anotherClass.FruitMachine(alpha, anotherClass.apples);
     }
     
     void Example(int pens, int crayons){
-        int responda;
-        responda = pens + crayons;
-        Debug.Log(responda);
+        int answer;
+        answer = pens + crayons;
+        Debug.Log(answer);
     }
 
     void Update(){
-        Debug.Log("Alpha esta definido para: " + alpha);
+        Debug.Log("Alpha esta definido para: " + alpha + beta + gamma);
     }
 }
